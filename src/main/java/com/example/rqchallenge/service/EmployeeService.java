@@ -23,7 +23,7 @@ public class EmployeeService {
 
         if (employees == null) return null;
 
-        return employees.employees;
+        return employees.getEmployees();
     }
 
 }

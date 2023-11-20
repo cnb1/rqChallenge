@@ -7,11 +7,35 @@ import java.util.List;
 public class Employees {
 
     @JsonProperty("status")
-    public String status;
+    private String status;
 
     @JsonProperty("data")
-    public List<Employee> employees;
+    private List<Employee> employees;
 
     @JsonProperty("message")
-    public String message;
+    private String message;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
