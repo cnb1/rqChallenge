@@ -160,7 +160,7 @@ class RqChallengeApplicationTests {
     @Test
     void deleteEmployeeMock() throws Exception {
 
-        String s = "{\"status\":\"success\",\"data\":\"158\",\"message\":\"Successfully! Record has been deleted\"}";
+        String s = "{\"status\":\"success\",\"data\":\"1\",\"message\":\"Successfully! Record has been deleted\"}";
 
         given(employeeRequest.deleteEmployee("1")).willReturn(s);
 

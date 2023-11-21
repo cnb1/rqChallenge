@@ -38,4 +38,13 @@ public class Employees {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "Employees{" +
+                "status='" + status + '\'' +
+                ", employees=" + employees.toString() +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

@@ -25,10 +25,16 @@ public class EmployeeRequest {
     public Employees getAllEmployees() {
         try {
             ResponseEntity<Employees> empList = restTemplate.getForEntity(url,Employees.class);
-            logger.info("Get All Employees Response : " + empList.getBody().toString());
 
-            return empList.getBody();
+            if(empList.getBody() != null) {
+                logger.info("Get All Employees Status : " + empList.getStatusCode() + " | Get All Employees Response : " + empList.getBody().toString());
+                return empList.getBody();
+            }
+            else {
+                return null;
+            }
         } catch (Exception e) {
+            logger.error("Exception getting all employees : ", e);
             return null;
         }
     }
@@ -38,32 +44,61 @@ public class EmployeeRequest {
             int i = Integer.parseInt(id);
             ResponseEntity<EmployeeRest> emp = restTemplate.getForEntity(String.format(urlId, i), EmployeeRest.class);
 
-            return emp.getBody().getEmployee();
+            if (emp.getBody() != null) {
+                logger.info("Get Employee Id Status : " + emp.getStatusCode() + " | Employee by Id : " + emp.getBody().toString());
+                return emp.getBody().getEmployee();
+            }
+            else {
+                return null;
+            }
         }
         catch (Exception e) {
+            logger.error("Exception getting employee by id : ", e);
             return null;
         }
     }
 
     public Employee createEmployee(Map<String, Object> employeeInput) {
-        Employee employee = new Employee((String) employeeInput.get("name"),
-                (String) employeeInput.get("salary"),
-                (String) employeeInput.get("age"));
 
-        HttpEntity<Employee> postBody = new HttpEntity<>(employee);
+        try {
+            Employee employee = new Employee((String) employeeInput.get("name"),
+                    (String) employeeInput.get("salary"),
+                    (String) employeeInput.get("age"));
 
-        ResponseEntity<EmployeeRest> createemp = restTemplate.postForEntity(urlCreate, postBody, EmployeeRest.class);
+            HttpEntity<Employee> postBody = new HttpEntity<>(employee);
 
-        return createemp.getBody().getEmployee();
+            ResponseEntity<EmployeeRest> createemp = restTemplate.postForEntity(urlCreate, postBody, EmployeeRest.class);
+
+            if (createemp.getBody() != null) {
+                logger.info("Create Employee Status : " + createemp.getStatusCode() + " | Created Employee : " + createemp.getBody().toString());
+                return createemp.getBody().getEmployee();
+            }
+            else {
+                return null;
+            }
+        }
+        catch (Exception e ) {
+            logger.error("Exception createing employee : ", e);
+            return null;
+        }
     }
 
     public String deleteEmployee(String id) {
         try {
             int i = Integer.parseInt(id);
-            ResponseEntity<String> createemp = restTemplate.exchange(String.format(deleteUrl, i), HttpMethod.DELETE, null, String.class);
-            return createemp.getBody();
+            ResponseEntity<String> deleteemp = restTemplate.exchange(String.format(deleteUrl, i), HttpMethod.DELETE, null, String.class);
+
+            if (deleteemp.getBody() != null) {
+                logger.info("Delete Employee Status : " + deleteemp.getStatusCode() + " | Deleted Employee : " + deleteemp.getBody().toString());
+                return deleteemp.getBody();
+            }
+            else {
+                return null;
+            }
+
         }
         catch(Exception e) {
+            logger.error("Exception deleting employee : ", e);
             return null;
         }
     }

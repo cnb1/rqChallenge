@@ -20,7 +20,10 @@ public class EmployeeService {
     public List<Employee> getAllEmployees(){
         Employees employees = employeeRequest.getAllEmployees();
 
-        if (employees == null) return null;
+        if (employees == null) {
+            logger.error("Employees is null");
+            return null;
+        }
 
         return employees.getEmployees();
     }
@@ -29,10 +32,13 @@ public class EmployeeService {
         Employees employees = employeeRequest.getAllEmployees();
         List<Employee> matches = new ArrayList<>();
 
-        if (employees == null) return null;
+        if (employees == null) {
+            logger.error("Employees is null");
+            return null;
+        }
 
         for (Employee e : employees.getEmployees()){
-            if (e.getEmployee_name().contains(name)){
+            if (e.getEmployee_name().toLowerCase().contains(name.toLowerCase())){
                 matches.add(e);
             }
         }
@@ -47,7 +53,10 @@ public class EmployeeService {
     public Integer getHighestSalary() {
         Employees employees = employeeRequest.getAllEmployees();
 
-        if (employees == null) return null;
+        if (employees == null) {
+            logger.error("Employees is null");
+            return null;
+        }
 
         Integer max = Integer.MIN_VALUE;
 
@@ -62,7 +71,10 @@ public class EmployeeService {
     public List<String> getTop10HighestEarningEmployeeNames() {
         Employees employees = employeeRequest.getAllEmployees();
 
-        if (employees == null) return null;
+        if (employees == null) {
+            logger.error("Employees is null");
+            return null;
+        }
 
         List<Integer> topSal = new ArrayList<>();
         List<String> topSalString = new ArrayList<>();

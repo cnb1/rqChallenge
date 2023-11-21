@@ -66,4 +66,15 @@ public class Employee {
     public void setProfile_image(String profile_image) {
         this.profile_image = profile_image;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", employee_name='" + employee_name + '\'' +
+                ", employee_salary=" + employee_salary +
+                ", employee_age=" + employee_age +
+                ", profile_image='" + profile_image + '\'' +
+                '}';
+    }
 }

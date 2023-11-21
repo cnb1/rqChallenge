@@ -38,4 +38,13 @@ public class EmployeeRest {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeRest{" +
+                "status='" + status + '\'' +
+                ", employee=" + employee +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
