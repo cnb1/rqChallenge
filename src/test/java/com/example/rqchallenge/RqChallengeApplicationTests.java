@@ -65,4 +65,6 @@ class RqChallengeApplicationTests {
         assertThat(employee.getEmployee_salary()).isEqualTo(320800);
     }
 
+
+
 }
