@@ -28,7 +28,7 @@ public class EmployeeController implements IEmployeeController {
 
          if (employees == null) {
              logger.error("Employees is null so return bad request");
-             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
          }
          else {
              logger.info("Returning employees of size : " + employees.size());
@@ -38,12 +38,30 @@ public class EmployeeController implements IEmployeeController {
 
     @Override
     public ResponseEntity<List<Employee>> getEmployeesByNameSearch(String searchString) {
-        return null;
+        List<Employee> employeeMatches = employeeService.getEmployeesByNameSearch(searchString);
+
+        if (employeeMatches == null) {
+            logger.error("Employees matches is null so return bad request");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else {
+            logger.info("Returning name matches of size : " + employeeMatches.size());
+            return ResponseEntity.status(HttpStatus.OK).body(employeeMatches);
+        }
     }
 
     @Override
     public ResponseEntity<Employee> getEmployeeById(String id) {
-        return null;
+        Employee employee = employeeService.getEmployeeById(id);
+
+        if (employee == null) {
+            logger.error("Employee match by id is null so return bad request");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else {
+            logger.info("Returning employee : " + employee.toString());
+            return ResponseEntity.status(HttpStatus.OK).body(employee);
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.rqchallenge.request;
 
+import com.example.rqchallenge.models.Employee;
+import com.example.rqchallenge.models.EmployeeRest;
 import com.example.rqchallenge.models.Employees;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,21 +16,30 @@ public class EmployeeRequest {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String url = "https://dummy.restapiexample.com/api/v1/employees";
+    private static final String urlId = "https://dummy.restapiexample.com/api/v1/employee/";
 
     public Employees getAllEmployees() {
         try {
             ResponseEntity<Employees> empList = restTemplate.getForEntity(url,Employees.class);
-
-            if (empList != null) {
-                logger.info("Get All Employees Response : " + empList.getBody().toString());
-            } else {
-                throw new Exception("Employee list is null");
-            }
+            logger.info("Get All Employees Response : " + empList.getBody().toString());
 
             return empList.getBody();
         } catch (Exception e) {
             return null;
         }
-
     }
+
+    public Employee getEmployeeById(String id) {
+        try {
+            int i = Integer.parseInt(id);
+            String urlTemp = urlId + i;
+            ResponseEntity<EmployeeRest> emp = restTemplate.getForEntity(urlTemp, EmployeeRest.class);
+
+            return emp.getBody().getEmployee();
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
 }
