@@ -16,7 +16,7 @@ public class EmployeeRequest {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String url = "https://dummy.restapiexample.com/api/v1/employees";
-    private static final String urlId = "https://dummy.restapiexample.com/api/v1/employee/";
+    private static final String urlId = "https://dummy.restapiexample.com/api/v1/employee/%s";
 
     public Employees getAllEmployees() {
         try {
@@ -32,8 +32,7 @@ public class EmployeeRequest {
     public Employee getEmployeeById(String id) {
         try {
             int i = Integer.parseInt(id);
-            String urlTemp = urlId + i;
-            ResponseEntity<EmployeeRest> emp = restTemplate.getForEntity(urlTemp, EmployeeRest.class);
+            ResponseEntity<EmployeeRest> emp = restTemplate.getForEntity(String.format(urlId, i), EmployeeRest.class);
 
             return emp.getBody().getEmployee();
         }

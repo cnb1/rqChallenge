@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EmployeeService {
@@ -45,4 +44,41 @@ public class EmployeeService {
         return employeeRequest.getEmployeeById(id);
     }
 
+    public Integer getHighestSalary() {
+        Employees employees = employeeRequest.getAllEmployees();
+
+        if (employees == null) return null;
+
+        Integer max = Integer.MIN_VALUE;
+
+        for (Employee e : employees.getEmployees()) {
+            if (e.getEmployee_salary() > max) {
+                max = e.getEmployee_salary();
+            }
+        }
+        return max;
+    }
+
+    public List<String> getTop10HighestEarningEmployeeNames() {
+        Employees employees = employeeRequest.getAllEmployees();
+
+        if (employees == null) return null;
+
+        List<Integer> topSal = new ArrayList<>();
+        List<String> topSalString = new ArrayList<>();
+
+        for (Employee e : employees.getEmployees()) {
+            topSal.add(e.getEmployee_salary());
+        }
+
+        topSal.sort(Comparator.reverseOrder());
+
+        Iterator<Integer> iterator = topSal.iterator();
+
+        while(iterator.hasNext() && topSalString.size() < 10) {
+            topSalString.add(String.valueOf(iterator.next()));
+        }
+
+        return topSalString;
+    }
 }

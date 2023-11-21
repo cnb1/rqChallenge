@@ -66,12 +66,30 @@ public class EmployeeController implements IEmployeeController {
 
     @Override
     public ResponseEntity<Integer> getHighestSalaryOfEmployees() {
-        return null;
+        Integer maxSalary = employeeService.getHighestSalary();
+
+        if (maxSalary == null) {
+            logger.error("Error getting max salary");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else {
+            logger.info("Returning employee : " + maxSalary);
+            return ResponseEntity.status(HttpStatus.OK).body(maxSalary);
+        }
     }
 
     @Override
     public ResponseEntity<List<String>> getTopTenHighestEarningEmployeeNames() {
-        return null;
+        List<String> topSals = employeeService.getTop10HighestEarningEmployeeNames();
+
+        if (topSals == null) {
+            logger.error("Error getting top 10 salarys");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else {
+            logger.info("Returning top 10 salaries: " + topSals.toString());
+            return ResponseEntity.status(HttpStatus.OK).body(topSals);
+        }
     }
 
     @Override
