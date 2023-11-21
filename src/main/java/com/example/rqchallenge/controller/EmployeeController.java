@@ -108,6 +108,15 @@ public class EmployeeController implements IEmployeeController {
 
     @Override
     public ResponseEntity<String> deleteEmployeeById(String id) {
-        return null;
+        String s = employeeService.deleteEmployee(id);
+
+        if (s == null) {
+            logger.error("Error deleting user id : " + id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else {
+            logger.info("Deleted employee with id : " + id);
+            return ResponseEntity.status(HttpStatus.OK).body(s);
+        }
     }
 }

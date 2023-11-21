@@ -85,4 +85,8 @@ public class EmployeeService {
     public Employee createEmployee(Map<String, Object> employeeInput) {
         return  employeeRequest.createEmployee(employeeInput);
     }
+
+    public String deleteEmployee(String id) {
+        return employeeRequest.deleteEmployee(id);
+    }
 }
