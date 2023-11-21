@@ -19,6 +19,14 @@ public class Employee {
     @JsonProperty("profile_image")
     private String profile_image;
 
+    public Employee() {}
+
+    public Employee(String name, String salary, String age) {
+        this.employee_name = name;
+        this.employee_salary = Integer.parseInt(salary);
+        this.employee_age = Integer.parseInt(age);
+    }
+
     public int getId() {
         return id;
     }

@@ -94,7 +94,16 @@ public class EmployeeController implements IEmployeeController {
 
     @Override
     public ResponseEntity<Employee> createEmployee(Map<String, Object> employeeInput) {
-        return null;
+        Employee employee = employeeService.createEmployee(employeeInput);
+
+        if (employee == null) {
+            logger.error("Error getting top 10 salarys");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        else {
+            logger.info("Created employee : " + employee.toString());
+            return ResponseEntity.status(HttpStatus.OK).body(employee);
+        }
     }
 
     @Override

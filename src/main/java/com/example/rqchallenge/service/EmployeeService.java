@@ -81,4 +81,8 @@ public class EmployeeService {
 
         return topSalString;
     }
+
+    public Employee createEmployee(Map<String, Object> employeeInput) {
+        return  employeeRequest.createEmployee(employeeInput);
+    }
 }
